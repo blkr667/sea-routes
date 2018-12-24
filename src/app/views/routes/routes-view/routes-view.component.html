@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="jumbotron mt-3 py-5 text-center bg-white">
+        <div class="row">
+            <div class="col mt-2">
+                <app-file-upload (loadedRoutes)="onRoutesLoad($event)"></app-file-upload>
+            </div>
+            <div class="col mt-2">
+                <app-select-route [routes]="routes" (selectedRoute)="onRouteSelect($event)"></app-select-route>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="selectedRoute">
+            <div class="col mt-2">
+                <div class="btn-group float-left">
+                    <button type="button" class="btn btn-success" [ngClass]="{active: showMap}" (click)="showMap = true">Sea
+                        routes map</button>
+                    <button type="button" class="btn btn-success" [ngClass]="{active: !showMap}" (click)="showMap = false">Ship
+                        speed graph</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="selectedRoute">
+            <div class="col mt-3">
+                <app-speed-changes-graph *ngIf="!showMap" [selectedRoute]="selectedRoute"></app-speed-changes-graph>
+                <app-route-map *ngIf="showMap" [selectedRoute]="selectedRoute"></app-route-map>
+            </div>
+        </div>
+    </div>
+</div>
